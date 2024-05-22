@@ -1,30 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongodb-pedido
+  name: mongodb-produto
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mongodb-pedido
+      app: mongodb-produto
   template:
     metadata:
       labels:
-        app: mongodb-pedido
+        app: mongodb-produto
     spec:
       containers:
-        - name: mongodb-pedido
+        - name: mongodb-produto
           image: mongo:latest
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 27017
           envFrom:
             - configMapRef:
-                name: mongodb-pedido-config
+                name: mongodb-produto-config
           volumeMounts:
             - mountPath: /data/db
-              name: mongodb-pedido-db
+              name: mongodb-produto-db
       volumes:
-        - name: mongodb-pedido-db
+        - name: mongodb-produto-db
           persistentVolumeClaim:
-            claimName: mongodb-pedido-pv-claim
+            claimName: mongodb-produto-pv-claim

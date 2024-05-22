@@ -2,10 +2,12 @@ name: Deploy to EKS
 on:
   push:
     branches:
-      - develop
+      - main
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: production
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -14,12 +16,6 @@ jobs:
         with:
           username: ${{secrets.DOCKERHUB_USERNAME}}
           password: ${{secrets.DOCKERHUB_TOKEN}}
-      # - name: Build and push Docker image
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: .
-      #     push: true
-      #     tags: ufoindustry/tech-challenge:latest
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -39,8 +35,16 @@ jobs:
           aws eks --region ${{secrets.AWS_REGION}} update-kubeconfig --name ${{secrets.EKS_CLUSTER_NAME}}
           TOKEN=$(aws eks get-token --cluster-name ${{secrets.EKS_CLUSTER_NAME}} --region ${{secrets.AWS_REGION}} --output json | jq -r '.status.token')
           kubectl config set-credentials ${{secrets.USERNAME}} --token=$TOKEN
-          cd infrastructure/database-pedido
-          kubectl apply -f postgres-configmap-1.yaml
-          kubectl apply -f postgres-pvc-pv-2.yaml
-          kubectl apply -f postgres-deployment-3.yaml
-          kubectl apply -f postgres-service-4.yaml
+          cd infrastructure
+          kubectl apply -f database-pedido/postgres-configmap-1.yaml
+          kubectl apply -f database-pedido/postgres-pvc-pv-2.yaml
+          kubectl apply -f database-pedido/postgres-deployment-3.yaml
+          kubectl apply -f database-pedido/postgres-service-4.yaml
+          kubectl apply -f database-pagamento/postgres-configmap-1.yaml
+          kubectl apply -f database-pagamento/postgres-pvc-pv-2.yaml
+          kubectl apply -f database-pagamento/postgres-deployment-3.yaml
+          kubectl apply -f database-pagamento/postgres-service-4.yaml
+          kubectl apply -f database-produto/postgres-configmap-1.yaml
+          kubectl apply -f database-produto/postgres-pvc-pv-2.yaml
+          kubectl apply -f database-produto/postgres-deployment-3.yaml
+          kubectl apply -f database-produto/postgres-service-4.yaml
