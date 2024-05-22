@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: postgres-config
+  name: postgres-pedido-config
   labels:
-    app: postgres
+    app: postgres-pedido
 data:
-  POSTGRES_DB: postgres
+  POSTGRES_DB: postgres-pedido
   POSTGRES_USER: myuser
   POSTGRES_PASSWORD: secret

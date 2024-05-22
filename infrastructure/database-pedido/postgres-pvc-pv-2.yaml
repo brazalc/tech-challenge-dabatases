@@ -1,10 +1,10 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: postgres-pv-volume
+  name: postgres-pedido-pv-volume
   labels:
     type: local
-    app: postgres
+    app: postgres-pedido
 spec:
   storageClassName: manual
   capacity:
@@ -17,9 +17,9 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: postgres-pv-claim
+  name: postgres-pedido-pv-claim
   labels:
-    app: postgres
+    app: postgres-pedido
 spec:
   storageClassName: manual
   accessModes:
