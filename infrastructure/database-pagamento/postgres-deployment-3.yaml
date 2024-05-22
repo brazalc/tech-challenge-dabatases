@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-pedido
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb-pedido
+  template:
+    metadata:
+      labels:
+        app: mongodb-pedido
+    spec:
+      containers:
+        - name: mongodb-pedido
+          image: mongo:latest
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 27017
+          envFrom:
+            - configMapRef:
+                name: mongodb-pedido-config
+          volumeMounts:
+            - mountPath: /data/db
+              name: mongodb-pedido-db
+      volumes:
+        - name: mongodb-pedido-db
+          persistentVolumeClaim:
+            claimName: mongodb-pedido-pv-claim
