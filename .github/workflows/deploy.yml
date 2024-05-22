@@ -38,3 +38,13 @@ jobs:
           kubectl apply -f database-pedido/postgres-pvc-pv-2.yaml
           kubectl apply -f database-pedido/postgres-deployment-3.yaml
           kubectl apply -f database-pedido/postgres-service-4.yaml
+
+          kubectl apply -f database-pagamento/postgres-configmap-1.yaml
+          kubectl apply -f database-pagamento/postgres-pvc-pv-2.yaml
+          kubectl apply -f database-pagamento/postgres-deployment-3.yaml
+          kubectl apply -f database-pagamento/postgres-service-4.yaml
+
+          kubectl apply -f database-produto/postgres-configmap-1.yaml
+          kubectl apply -f database-produto/postgres-pvc-pv-2.yaml
+          kubectl apply -f database-produto/postgres-deployment-3.yaml
+          kubectl apply -f database-produto/postgres-service-4.yaml
