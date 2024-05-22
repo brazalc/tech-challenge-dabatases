@@ -1,10 +1,10 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: mongodb-pedido-pv-volume
+  name: mongodb-produto-pv-volume
   labels:
     type: local
-    app: mongodb-pedido
+    app: mongodb-produto
 spec:
   storageClassName: manual
   capacity:
@@ -17,9 +17,9 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: mongodb-pedido-pv-claim
+  name: mongodb-produto-pv-claim
   labels:
-    app: mongodb-pedido
+    app: mongodb-produto
 spec:
   storageClassName: manual
   accessModes:
